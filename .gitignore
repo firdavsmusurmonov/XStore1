@@ -1,0 +1,13 @@
+env
+backups
+media
+!**/__pycache__/
+*.pyc
+*.pyo
+/.idea
+/.vs
+db.sqlite3
+/account/migrations
+env
+/home/migrations
+ngrok.exe
