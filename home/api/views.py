@@ -85,11 +85,13 @@ class OrderViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     pagination_class = LargeResultsSetPagination
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
+
 class OrderItemViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
     pagination_class = LargeResultsSetPagination
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+
 
 #
 @api_view(['GET'])
@@ -134,4 +136,47 @@ def bidbuy(request):
             'msg': "story not found"
         }
         return Response(result)
-#
+
+@api_view(['GET'])
+@permission_classes([AllowAny, ])
+def myprofil(request):
+    user_id = request.GET.get("user_id")
+    user = Customuser.objects.filter(id=user_id).first()
+    if user:
+        result = {
+            'status': 1,
+            'msg': CustomuserProfilSerializer(user, many=False, context={"request": request}).data
+        }
+        return Response(result, status=status.HTTP_200_OK)
+    else:
+        result = {
+            'status': 0,
+            'msg': "user not found"
+        }
+        return Response(result)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, ])
+def order_status(request):
+    try:
+        status = request.GET['status']
+        if status:
+            order = Order.objects.filter(status=status).all()
+
+            result = {
+                'status': 1,
+                'order': OrderSerializer(order, many=True, context={"request": request}).data
+            }
+            return Response(result)
+        else:
+            result = {
+                'status': "Order not define",
+            }
+            return Response(result)
+    except KeyError:
+        res = {
+            'status': 0,
+            'msg': 'Please set all reqiured fields'
+        }
+        return Response(res)

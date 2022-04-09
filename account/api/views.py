@@ -58,8 +58,8 @@ def register(request):
         password = request.data.get('password')
         if not login:
             res = {
-                'msg': 'Login empty',
                 'status': 0,
+                'msg': 'Login empty',
             }
             return Response(res)
 
@@ -74,7 +74,7 @@ def register(request):
         elif user:
             res = {
                 'msg': 'User exits',
-                'status': 2,
+                'status': 0,
             }
             return Response(res)
         smscode = random.randint(1000, 9999)

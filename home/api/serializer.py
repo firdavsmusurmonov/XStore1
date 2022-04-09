@@ -117,6 +117,9 @@ class OrderSerializer(serializers.ModelSerializer):
     def get_user(self, obj):
         return CustomuserOrderSerializer(obj.user, many=False, context={'request': self.context['request']}).data
 
+    def get_like_count(self, obj):
+        return Order.objects.filter(like=obj).count()
+
 
 class OrderItemSerializer(serializers.ModelSerializer):
     size = serializers.SerializerMethodField()

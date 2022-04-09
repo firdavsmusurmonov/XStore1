@@ -128,8 +128,9 @@ class Comment(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = (
+        ('current', 'Current'),
         ('pending', 'Pending'),
-        ('sending', 'Sending')
+        ('history', 'History')
     )
     user = models.ForeignKey(Customuser, related_name="user_or", null=True, blank=True,
                              on_delete=models.CASCADE)

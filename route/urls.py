@@ -28,6 +28,7 @@ urlpatterns = [
     path('forget-accept', forget_accept),
     path('storyimagevideo', storyimagevideo),
     path('bidbuy', bidbuy),
+    path('order-status', order_status),
     path('click', csrf_exempt(ClickUzMerchantAPIView.as_view())),
 ]
 urlpatterns += router.urls

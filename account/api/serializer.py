@@ -7,6 +7,12 @@ class CustomuserSerializer(serializers.ModelSerializer):
         model = Customuser
         fields = ["id", "username", "smscode"]
 
+
+class CustomuserProfilSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customuser
+        fields = ["id", "username", "first_name",'email','avatar']
+
 class CustomuserOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customuser
