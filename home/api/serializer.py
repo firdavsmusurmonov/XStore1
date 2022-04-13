@@ -108,14 +108,14 @@ class ProductPriceSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
+    # user = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ["status", "count"]
 
-    def get_user(self, obj):
-        return CustomuserOrderSerializer(obj.user, many=False, context={'request': self.context['request']}).data
+    # def get_user(self, obj):
+    #     return CustomuserOrderSerializer(obj.user, many=False, context={'request': self.context['request']}).data
 
     def get_like_count(self, obj):
         return Order.objects.filter(like=obj).count()

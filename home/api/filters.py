@@ -1,4 +1,6 @@
 import django_filters
+from django.contrib.postgres.search import SearchVector
+
 from home.models import Product, Allsize
 
 
@@ -12,6 +14,10 @@ class ProductFilter(django_filters.FilterSet):
         model = Product
         fields = ["justDropped", 'mostPopular','brend']
 
+    # Praduct.objects.annotate(
+    #     search=SearchVector('body_text') + SearchVector('blog__tagline'),
+    # ).filter(search='Cheese')
+    # )
 
 class AllsizeFilter(django_filters.FilterSet):
     # justDropped = django_filters.BooleanFilter(field_name='justDropped')

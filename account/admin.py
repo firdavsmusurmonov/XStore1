@@ -4,7 +4,7 @@ from  home.models import *
 
 
 class CustomuserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username']
+    list_display = ['id', 'username','email']
 
 
 class RegionAdmin(admin.ModelAdmin):

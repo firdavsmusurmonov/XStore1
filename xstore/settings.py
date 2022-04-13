@@ -44,6 +44,7 @@ INSTALLED_APPS = [
                      'django_filters',
                      'rest_framework_jwt',
                      'pagination',
+
                  ] + APPS
 
 MIDDLEWARE = [
@@ -134,7 +135,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 AUTH_USER_MODEL = 'account.Customuser'
 
 # Default primary key field typerouters
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/4.\ \                           0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -203,7 +204,7 @@ EMAIL_PORT = 587
 
 SITE_ID = 1
 CLICK_SETTINGS = {
-    'service_id':'1',
-    'merchant_id':'1',
-    'secret_key':'test'
+    'service_id': '1',
+    'merchant_id': '1',
+    'secret_key': 'test'
 }

@@ -72,17 +72,20 @@ def register(request):
                 complete=0
             )
         elif user:
+            smscode = random.randint(1000, 9999)
+            send_sms(email, "Sizning tasdiqlash codingiz: " + str(smscode))
             res = {
                 'msg': 'User exits',
                 'status': 0,
             }
             return Response(res)
-        smscode = random.randint(1000, 9999)
+
         user.set_password(str(password))
+        smscode = random.randint(1000, 9999)
+        send_sms(email, "Sizning tasdiqlash codingiz: " + str(smscode))
         user.smscode = smscode
         user.email = email
         user.save()
-        send_sms(email, "Sizning tasdiqlash codingiz: " + str(smscode))
 
         if user:
             result = {
@@ -188,7 +191,6 @@ def login(request):
             'msg': 'Please set all reqiured fields'
         }
         return Response(res)
-
 
 
 # @api_view(['POST'])

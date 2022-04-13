@@ -13,6 +13,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from home.api.filters import ProductFilter, AllsizeFilter
 # from rest_framework.pagination import LargeResultsSetPagination
 from xstore.pagination import LargeResultsSetPagination
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -51,6 +52,8 @@ class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.
     filterset_fields = ['name']
     search_fields = ['name', 'category__name', 'brend']
     filterset_class = ProductFilter
+
+
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -155,18 +158,18 @@ def myprofil(request):
         }
         return Response(result)
 
-
+from django.db.models import Count
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, ])
 def order_status(request):
     try:
         status = request.GET['status']
         if status:
-            order = Order.objects.filter(status=status).all()
-
+            order = Order.objects.values('status').order_by('status').annotate(count=Count('status'))
+            print(order)
             result = {
                 'status': 1,
-                'order': OrderSerializer(order, many=True, context={"request": request}).data
+                'order': order
             }
             return Response(result)
         else:
