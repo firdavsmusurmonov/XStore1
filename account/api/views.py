@@ -162,9 +162,9 @@ def login(request):
                     'status': 0,
                 }
                 return Response(res)
-        print(user)
         if user and user.check_password(str(password)):
             if user.complete == 0:
+
                 res = {
                     'msg': 'email sms code not check',
                     'status': 0,
