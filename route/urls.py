@@ -1,5 +1,5 @@
 from account.api.views import *
-from click.api.views import ClickUzMerchantAPIView
+from click.api.views import ClickUzMerchantAPIView, ClickGenereteUrl
 from home.api.views import *
 from rest_framework import routers, serializers, viewsets
 
@@ -15,7 +15,6 @@ router.register(r'productPrice', ProductPriceViewSet)
 router.register(r'orderitem', OrderItemViewSet)
 router.register(r'order', OrderViewSet)
 
-
 from django.contrib import admin
 from django.urls import path, include
 from django.views.decorators.csrf import csrf_exempt
@@ -30,5 +29,6 @@ urlpatterns = [
     path('bidbuy', bidbuy),
     path('order-status', order_status),
     path('click', csrf_exempt(ClickUzMerchantAPIView.as_view())),
+    path('click-url/', ClickGenereteUrl.as_view()),
 ]
 urlpatterns += router.urls
